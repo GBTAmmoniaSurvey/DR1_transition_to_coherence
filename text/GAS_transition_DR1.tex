@@ -1,0 +1,212 @@
+%% This is emulateapj reformatting of the AASTEX sample document
+%%
+\documentclass[preprint2]{aastex6}
+
+%\usepackage{graphicx}
+%\usepackage[space]{grffile}
+%\usepackage{latexsym}
+%\usepackage{textcomp}
+%\usepackage{longtable}
+%\usepackage{multirow,booktabs}
+%\usepackage{amsfonts,amsmath,amssymb}
+%\usepackage{natbib}
+% You can conditionalize code for latexml or normal latex using this.
+%\newif\iflatexml\latexmlfalse
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman,greek,english]{babel}
+
+%\usepackage[english]{babel}
+%\usepackage{natbib}
+
+\newcommand{\e}{\mbox{e}^}
+\newcommand{\amm}{NH$_3$}
+\newcommand{\kms}{km\,s$^{-1}$}
+\newcommand{\cc}{cm$^{-3}$}
+\newcommand{\vlsr}{$v_{\mathrm{LSR}}$}
+\newcommand{\sigv}{$\sigma_v$}
+\newcommand{\tkin}{$T_\mathrm{kin}$}
+\newcommand{\tex}{$T_\mathrm{ex}$}
+\newcommand{\tmb}{$T_\mathrm{MB}$}
+\newcommand{\nh}{N(H$_2$)}
+\newcommand{\namm}{N(NH$_3$)}
+\newcommand{\mvir}{$M_\mathrm{vir}$}
+\newcommand{\avir}{$\alpha_\mathrm{vir}$}
+%\newcommand{\micron}{$\mu$m}
+%\newcommand{\arcmin}{$^\prime$}
+%\newcommand{\arcsec}{$^{\prime\prime}$}
+
+%\def\comment#1{\noindent{\bf \textcolor{red}{[#1]}}}
+
+
+%% You can insert a short comment on the title page using the command below.
+%\slugcomment{To appear in The Astrophysical Journal (ApJ)}
+
+%% If you wish, you may supply running head information, although
+%% this information may be modified by the editorial offices.
+%% The left head contains a list of authors,
+%% usually a maximum of three (otherwise use et al.).  The right
+%% head is a modified title of up to roughly 44 characters.
+%% Running heads will not print in the manuscript style.
+
+\shorttitle{Transition to Coherence with GAS}
+\shortauthors{J.E. Pineda et al.}
+
+%% This is the end of the preamble.  Indicate the beginning of the
+%% paper itself with \begin{document}.
+
+\begin{document}
+
+%% LaTeX will automatically break titles if they run longer than
+%% one line. However, you may use \\ to force a line break if
+%% you desire.
+
+\title{Transition to Coherence in Dense Cores using 
+the Green Bank Ammonia Survey (GAS)}
+
+
+%% Use \author, \affil, and the \and command to format
+%% author and affiliation information.
+%% Note that \email has replaced the old \authoremail command
+%% from AASTeX v4.0. You can use \email to mark an email address
+%% anywhere in the paper, not just in the front matter.
+%% As in the title, use \\ to force line breaks.
+
+ \author{
+Jaime E. Pineda\altaffilmark{1}, 
+Rachel K. Friesen\altaffilmark{2}
+Erik Rosolowsky\altaffilmark{3}, 
+Felipe Alves\altaffilmark{1}, 
+Ana Chac\'on-Tanarro\altaffilmark{1},
+Hope How-Huan Chen\altaffilmark{4},
+Michael Chun-Yuan Chen\altaffilmark{5},
+James Di Francesco\altaffilmark{5,6},
+Jared Keown\altaffilmark{5},
+Helen Kirk\altaffilmark{6},
+Anna Punanova\altaffilmark{1},
+Young Min Seo\altaffilmark{7,8},
+Yancy Shirley\altaffilmark{8},
+Adam Ginsburg\altaffilmark{9},
+Christine Hall\altaffilmark{10},
+Stella S. R. Offner\altaffilmark{11},
+Ayushi Singh\altaffilmark{12},
+H\'ector G. Arce\altaffilmark{13},
+Paola Caselli\altaffilmark{1},
+Alyssa A. Goodman\altaffilmark{4},
+%Fabian Heitsch\altaffilmark{14},
+Peter G. Martin\altaffilmark{14},
+Christopher Matzner\altaffilmark{12},
+Philip C. Myers\altaffilmark{4},
+Elena Redaelli\altaffilmark{1}
+}
+
+\altaffiltext{1}{Max-Planck-Institut f\"ur extraterrestrische Physik, Giessenbachstrasse 1, 85748 Garching, Germany}
+\altaffiltext{2}{Dunlap Institute for Astronomy \& Astrophysics, University of Toronto, 50 St. George Street, Toronto, Ontario, Canada M5S 3H4} 
+\altaffiltext{3}{Department of Physics, University of Alberta, Edmonton, AB, Canada} 
+\altaffiltext{4}{Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, USA}
+\altaffiltext{5}{Department of Physics and Astronomy, University of Victoria, 3800 Finnerty Road, Victoria, BC, Canada V8P 5C2}
+\altaffiltext{6}{Herzberg Astronomy and Astrophysics, National Research Council of Canada, 5071 West Saanich Road, Victoria, BC, V9E 2E7, Canada}
+\altaffiltext{7}{Jet Propulsion Laboratory, NASA, 4800 Oak Grove Dr, Pasadena, CA 91109, USA}
+\altaffiltext{8}{Steward Observatory, 933 North Cherry Avenue, Tucson, AZ 85721, USA}
+\altaffiltext{9}{National Radio Astronomy Observatory, Socorro, NM 87801, USA}
+\altaffiltext{10}{Department of Physics, Engineering Physics \& Astronomy, Queen's University, Kingston, Ontario, Canada K7L 3N6}
+\altaffiltext{11}{Department of Astronomy, University of Massachusetts, Amherst, MA 01003, USA}
+\altaffiltext{12}{Department of Astronomy \& Astrophysics, University of Toronto, 50 St. George Street, Toronto, Ontario, Canada M5S 3H4}
+\altaffiltext{13}{Department of Astronomy, Yale University, P.O. Box 208101, New Haven, CT 06520-8101, USA}
+%\altaffiltext{14}{Department of Physics \& Astronomy, University of North Carolina at Chapel Hill, Chapel Hill, NC 27599-3255, USA}
+\altaffiltext{14}{Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St. George St., Toronto, Ontario, Canada, M5S 3H8}
+
+
+
+%% Notice that each of these authors has alternate affiliations, which
+%% are identified by the \altaffilmark after each name.  Specify alternate
+%% affiliation information with \altaffiltext, with one command per each
+%% affiliation.
+
+%\altaffiltext{1}{Visiting Astronomer, Cerro Tololo Inter-American Observatory.
+%CTIO is operated by AURA, Inc.\ under contract to the National Science
+%Foundation.}
+%\altaffiltext{2}{Society of Fellows, Harvard University.}
+%\altaffiltext{3}{present address: Center for Astrophysics,
+%    60 Garden Street, Cambridge, MA 02138}
+%\altaffiltext{4}{Visiting Programmer, Space Telescope Science Institute}
+%\altaffiltext{5}{Patron, Alonso's Bar and Grill}
+
+%% Mark off your abstract in the ``abstract'' environment. In the manuscript
+%% style, abstract will output a Received/Accepted line after the
+%% title and affiliation information. No date will appear since the author
+%% does not have this information. The dates will be filled in by the
+%% editorial office after submission.
+
+
+
+%% Keywords should appear after the \end{abstract} command. The uncommented
+%% example has been keyed in ApJ style. See the instructions to authors
+%% for the journal to which you are submitting your paper to determine
+%% what keyword punctuation is appropriate.
+
+%% Authors who wish to have the most important objects in their paper
+%% linked in the electronic edition to a data center may do so in the
+%% subject header.  Objects should be in the appropriate "individual"
+%% headers (e.g. quasars: individual, stars: individual, etc.) with the
+%% additional provision that the total number of headers, including each
+%% individual object, not exceed six.  The \objectname{} macro, and its
+%% alias \object{}, is used to mark each object.  The macro takes the object
+%% name as its primary argument.  This name will appear in the paper
+%% and serve as the link's anchor in the electronic edition if the name
+%% is recognized by the data centers.  The macro also takes an optional
+%% argument in parentheses in cases where the data center identification
+%% differs from what is to be printed in the paper.
+
+%\keywords{globular clusters: general --- globular clusters: individual(\objectname{NGC 6397},
+%\object{NGC 6624}, \objectname[M 15]{NGC 7078},
+%\object[Cl 1938-341]{Terzan 8})}
+
+%% From the front matter, we move on to the body of the paper.
+%% In the first two sections, notice the use of the natbib \citep
+%% and \citet commands to identify citations.  The citations are
+%% tied to the reference list via symbolic KEYs. The KEY corresponds
+%% to the KEY in the \bibitem in the reference list below. We have
+%% chosen the first three characters of the first author's name plus
+%% the last two numeral of the year of publication as our KEY for
+%% each reference.
+
+
+\begin{abstract}
+We use the first data release (DR1) of the Green Bank Ammonia Survey (GAS). 
+GAS is an ambitious Large Program at the Green Bank Telescope to map all regions within the northern hemisphere Gould Belt star-forming regions with $A_\mathrm{v} \gtrsim 7$ in emission from \amm\ and other key molecular tracers. 
+This first release includes the data for four regions in Gould Belt clouds: L1688 in Ophiuchus, Orion A North in Orion, NGC 1333 in Perseus, and B18 in Taurus. 
+We study the velocity dispersion obtained towards all these regions and identify sharp transitions between super-sonic and sub-sonic turbulence in molecular clouds.
+\end{abstract}
+
+\keywords{ISM: clouds --- stars: formation  --- ISM: molecules --- 
+ISM: individual (Perseus Molecular Complex, L1451, HH211, IRAS03282)}
+
+\section{Introduction}
+
+\section{Results}
+
+
+\section{Summary}
+\label{sec:summary}
+
+
+\acknowledgments
+JEP, AP and PC acknowledge the financial support of the European Research Council (ERC; project PALs 320620). 
+%
+RKF is a Dunlap Fellow at the Dunlap Institute for Astronomy \& Astrophysics. The Dunlap Institute is funded through an endowment established by the David Dunlap family and the University of Toronto. 
+%
+EWR, PGM and CDM are supported by Discovery Grants from NSERC of Canada. 
+%
+SSRO acknowledges support from NSF grant AST-1510021. 
+%
+The National Radio Astronomy Observatory is a facility of the National Science Foundation operated under cooperative agreement by Associated Universities, Inc. 
+%
+%This research made use of \verb-Astropy-, a community-developed core Python package for Astronomy \citep{Robitaille_2013}, and \verb-matplotlib- \citep{Hunter_2007} software packages.
+
+\facility{Green Bank Telescope} 
+
+\software{Astropy \citep{Robitaille_2013}, Matplotlib \citep{Hunter_2007}, pyspeckit \citep{2011ascl.soft09001G}}
+
+\bibliographystyle{apj}
+
+\end{document}
