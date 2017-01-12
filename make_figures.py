@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -11,9 +13,9 @@ def sound_speed(Tk=10.,mu=2.33):
 
 def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     #load data
-    Tp=fits.getdata('parameters/{0}/{0}_NH3_11_DR1_rebase3_Tpeak.fits'.format(region))
-    rms=fits.getdata('parameters/{0}/{0}_NH3_11_DR1_rebase3_rms.fits'.format(region))
-    param=fits.getdata('parameters/parameters/{0}_parameter_maps_DR1_rebase3_trim.fits'.format(region))
+    Tp=fits.getdata('{0}/{0}_NH3_11_DR1_rebase3_Tpeak.fits'.format(region))
+    rms=fits.getdata('{0}/{0}_NH3_11_DR1_rebase3_rms.fits'.format(region))
+    param=fits.getdata('parameters/{0}_parameter_maps_DR1_rebase3_trim.fits'.format(region))
     dv=param[3,:,:]
     edv=param[9,:,:]
     Tk=param[0,:,:]
@@ -33,6 +35,8 @@ def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     ymax=np.max(dv[gd])
     ymax_dv=np.max(dv_nt_cs[gd2])
     #
+    c_levels=np.arange(0.1,1,0.1)
+    #
     X, Y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
     X2,Y2= np.mgrid[xmin:xmax:100j, ymin:ymax_dv:100j]
     positions = np.vstack([X.ravel(), Y.ravel()])
@@ -49,33 +53,26 @@ def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     ax0.imshow(dv, origin='lower', vmin=0.05, vmax=0.5, cmap='viridis')
     #scatter plot for 
     fig1=plt.figure( figsize=( 6.0, 6.0) )
-    # ax1 = fig1.add_subplot(121)
-    # ax1.set_xlim([xmin, xmax])
-    # ax1.set_ylim([ymin, ymax])
-    # ax1.scatter(Tp[gd], dv[gd])
-    #
-    ax2 = fig1.add_subplot(111)
-    ax2.imshow(np.rot90(Z), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax], aspect='auto')
-    ax2.set_xlim([xmin, xmax])
-    ax2.set_ylim([ymin, ymax])
-    # plt.setp( ax1, xlabel="Peak temperature (K)")
-    # plt.setp( ax1, ylabel="velocity dispersion (km s$^{-1}$)")
-    plt.setp( ax2, xlabel="Peak temperature (K)")
-    plt.setp( ax2, ylabel="$\sigma_v$ (km s$^{-1}$)")
+    ax1 = fig1.add_subplot(111)
+    ax1.imshow(np.rot90(Z), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax], aspect='auto')
+    ax1.contour(Z/Z.max(), levels=c_levels)
+    ax1.set_xlim([xmin, xmax])
+    ax1.set_ylim([ymin, ymax])
+    plt.setp( ax1, xlabel="Peak temperature (K)")
+    plt.setp( ax1, ylabel="$\sigma_v$ (km s$^{-1}$)")
     #scatter plot for 
     fig2=plt.figure( figsize=( 6.0, 6.0) )
-    # ax3 = fig2.add_subplot(121)
-    # ax3.set_xlim([xmin, xmax])
-    # ax3.set_ylim([ymin, ymax_dv])
-    # ax3.scatter(Tp[gd2], dv_nt_cs[gd2])
     #
-    ax4 = fig2.add_subplot(111)
-    ax4.imshow(np.rot90(Z2), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax_dv], aspect='auto')
-    ax4.axhline(y=1., color='k')
-    ax4.axhline(y=0.5,color='k', ls='--')
-    ax4.set_xlim([xmin, xmax])
-    ax4.set_ylim([ymin, ymax_dv])
+    ax2 = fig2.add_subplot(111)
+    ax2.imshow(np.rot90(Z2), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax_dv], aspect='auto')
+    ax2.contour(Z2/Z2.max(), levels=c_levels)
+    ax2.axhline(y=1., color='k')
+    ax2.axhline(y=0.5,color='k', ls='--')
+    ax2.set_xlim([xmin, xmax])
+    ax2.set_ylim([ymin, ymax_dv])
     # plt.setp( ax3, xlabel="Peak temperature (K)")
     # plt.setp( ax3, ylabel="velocity dispersion (km s$^{-1}$)")
-    plt.setp( ax4, xlabel="Peak temperature (K)")
-    plt.setp( ax4, ylabel="$\sigma_{NT}/c_{s}$")
+    plt.setp( ax2, xlabel="Peak temperature (K)")
+    plt.setp( ax2, ylabel="$\sigma_{NT}/c_{s}$")
+
+# transition_plots(region='B18',max_edv=0.05)
