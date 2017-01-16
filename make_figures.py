@@ -20,6 +20,9 @@ def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     edv=param[9,:,:]
     Tk=param[0,:,:]
     eTk=param[6,:,:]
+    #
+    header=fits.getheader('{0}/{0}_NH3_11_DR1_rebase3_Tpeak.fits'.format(region))
+    header['BUNIT']='km/s'
     # blank out bad points
     dv[dv==0]=np.nan
     dv_nt_cs=np.sqrt(dv**2 - sound_speed(Tk=Tk,mu=17.0)**2)/sound_speed(Tk=Tk,mu=2.33)
@@ -35,7 +38,9 @@ def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     ymax=np.max(dv[gd])
     ymax_dv=np.max(dv_nt_cs[gd2])
     #
-    c_levels=np.arange(0.1,1,0.1)
+    # sigma_levels=np.arange(1,5,1)
+    # c_levels = np.exp(-0.5 * sigma_levels ** 2)[::-1]
+    c_levels=np.arange(0.125*0.5,1,0.125)
     #
     X, Y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
     X2,Y2= np.mgrid[xmin:xmax:100j, ymin:ymax_dv:100j]
@@ -48,31 +53,40 @@ def transition_plots(region='B18', max_edv=0.15, min_snr=4.0):
     Z = np.reshape(kernel(positions).T, X.shape)
     Z2= np.reshape(kernel2(positions2).T, X2.shape)
     #
-    fig0=plt.figure( figsize=( 15.0, 6.0) )
-    ax0= plt.subplot()
-    ax0.imshow(dv, origin='lower', vmin=0.05, vmax=0.5, cmap='viridis')
+    color_table='viridis'
+    hdu_dv = fits.PrimaryHDU(dv, header)
+    fig0=aplpy.FITSFigure(hdu_dv, hdu=0, figsize=( 15.0, 6.0))
+    fig0.show_colorscale( cmap=color_table, vmin=0.05, vmax=0.5)
+    fig0.savefig('figures/{0}_dv.pdf'.format(region), adjust_bbox='tight')
+    # fig0.show_contour(w11_file, colors='black', linewidths=0.5, levels=c_levs,
+    #                   zorder=34)
+    # ax0= plt.subplot()
+    # ax0.imshow(dv, origin='lower', vmin=0.05, vmax=0.5, cmap='viridis')
+    #
     #scatter plot for 
+    #
     fig1=plt.figure( figsize=( 6.0, 6.0) )
     ax1 = fig1.add_subplot(111)
     ax1.imshow(np.rot90(Z), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax], aspect='auto')
-    ax1.contour(Z/Z.max(), levels=c_levels)
+    ax1.contour(X, Y, Z/Z.max(), levels=c_levels, colors='gray')
     ax1.set_xlim([xmin, xmax])
     ax1.set_ylim([ymin, ymax])
     plt.setp( ax1, xlabel="Peak temperature (K)")
     plt.setp( ax1, ylabel="$\sigma_v$ (km s$^{-1}$)")
-    #scatter plot for 
-    fig2=plt.figure( figsize=( 6.0, 6.0) )
+    fig1.savefig('figures/{0}_Tp_dv_KDE.pdf'.format(region), bbox_inches='tight')
     #
+    #scatter plot for 
+    #
+    fig2=plt.figure( figsize=( 6.0, 6.0) )
     ax2 = fig2.add_subplot(111)
     ax2.imshow(np.rot90(Z2), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax_dv], aspect='auto')
-    ax2.contour(Z2/Z2.max(), levels=c_levels)
+    ax2.contour(X2, Y2, Z2/Z2.max(), levels=c_levels, colors='gray')
     ax2.axhline(y=1., color='k')
     ax2.axhline(y=0.5,color='k', ls='--')
     ax2.set_xlim([xmin, xmax])
     ax2.set_ylim([ymin, ymax_dv])
-    # plt.setp( ax3, xlabel="Peak temperature (K)")
-    # plt.setp( ax3, ylabel="velocity dispersion (km s$^{-1}$)")
     plt.setp( ax2, xlabel="Peak temperature (K)")
     plt.setp( ax2, ylabel="$\sigma_{NT}/c_{s}$")
+    fig2.savefig('figures/{0}_Tp_Mach_KDE.pdf'.format(region), bbox_inches='tight')
 
 # transition_plots(region='B18',max_edv=0.05)
